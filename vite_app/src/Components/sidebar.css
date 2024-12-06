@@ -1,0 +1,87 @@
+
+
+.container{
+background-color: #21212100;
+height: inherit;
+width: 23%;
+}
+
+.sub{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 1vh 5vw 0 0;
+}
+
+.menu>img{
+    width: 30px;
+    margin-left: 10px;
+}
+
+.logo>img{
+    width: 100px;
+    margin-left: 4vh;
+}
+
+.section1{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 3vh 0 0 0;
+    
+}
+
+.icon{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: -2vh 6vw 0 40px;
+}
+
+.icon>p{
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 4vh;
+    /* margin-top: 3vh; */
+}
+
+.line{
+    background-color: #60606092;
+    width: 100%;
+    margin: 0vh 0vw;
+    height: 0.2vh;
+}
+
+.subscription{
+    color: #60606092;
+    font-size: 2.5vh;
+    font-weight: 500;
+    margin: 1vh 2.5vw;
+}
+
+.section2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 0 10vw 0;
+    padding: 0 0 0 2.5vw;
+    /* border: 2px solid white; */
+    /* height: max-content; */
+    width: 90%;
+}
+
+.icon2{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* height: max-content; */
+    margin: -1vh 4vw 0 0.5px;
+}
+
+.icon2>p{
+    font-size: 15px;
+    margin-left: 4vh;
+    margin-top: 1.8vh;
+}
