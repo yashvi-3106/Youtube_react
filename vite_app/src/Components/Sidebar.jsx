@@ -31,7 +31,7 @@ function Sidebar(){
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:3000/data")
+        fetch("https://youtube-api-oybw.onrender.com/data")
         .then(res => res.json())
           .then(data => {
             console.log(data);
@@ -43,7 +43,7 @@ function Sidebar(){
         const [side ,setSide] = useState([])
 
         useEffect(() => {
-            fetch("http://localhost:3000/side")
+            fetch("https://youtube-api-oybw.onrender.com/side")
             .then(res => res.json())
               .then(side => {
                 console.log(side);
@@ -55,7 +55,7 @@ function Sidebar(){
             const [down ,setDown] = useState([])
 
             useEffect(() => {
-                fetch("http://localhost:3000/down")
+                fetch("https://youtube-api-oybw.onrender.com/down")
                 .then(res => res.json())
                   .then(down => {
                     console.log(down);
