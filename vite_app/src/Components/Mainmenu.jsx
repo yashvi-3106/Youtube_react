@@ -128,6 +128,8 @@
 
 // export default Mainmenu
 
+// 
+
 import { useState, useEffect } from "react";
 import "./MainMenu.css";
 
@@ -138,9 +140,10 @@ function Mainmenu() {
   const [error, setError] = useState(null); // Error state
   const [searchQuery, setSearchQuery] = useState(""); // State to capture search input
   const [searchResults, setSearchResults] = useState([]); // State to store search results
+  const [nextPageToken, setNextPageToken] = useState(null); // For handling pagination
 
   // YouTube API key
-  const API_KEY = `AIzaSyDT2Z7X9wZNdXiAm5GUGX_lwAIp06UEZcA`;
+  const API_KEY = `AIzaSyB23FfmZN7zu3ktCGUUpUkeceZHzNurKMc`;
 
   // Fetch popular YouTube videos on load
   useEffect(() => {
@@ -189,21 +192,37 @@ function Mainmenu() {
       setSearchResults([]); // Clear results if query is empty
     } else {
       setLoading(true);
-      fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${API_KEY}`)
-        .then(res => {
-          if (!res.ok) {
-            throw new Error("Failed to fetch search results");
-          }
-          return res.json();
-        })
-        .then(data => {
-          setSearchResults(data.items || []); // Update search results
-          setLoading(false);
-        })
-        .catch((error) => {
-          setError(error.message || "Error fetching search results.");
-          setLoading(false);
-        });
+      setNextPageToken(null); // Reset pagination on new search
+      fetchSearchResults(searchQuery);
+    }
+  };
+
+  // Fetch search results with pagination
+  const fetchSearchResults = (query, pageToken = '') => {
+    const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${query}&pageToken=${pageToken}&key=${API_KEY}`;
+    
+    fetch(url)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch search results");
+        }
+        return res.json();
+      })
+      .then(data => {
+        setSearchResults(prevResults => [...prevResults, ...data.items || []]); // Append new results to existing ones
+        setNextPageToken(data.nextPageToken || null); // Update pagination token
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message || "Error fetching search results.");
+        setLoading(false);
+      });
+  };
+
+  // Load more results when scrolling or user clicks load more button
+  const loadMoreResults = () => {
+    if (nextPageToken) {
+      fetchSearchResults(searchQuery, nextPageToken);
     }
   };
 
@@ -284,6 +303,12 @@ function Mainmenu() {
                 <div>No videos found for "{searchQuery}"</div>
               )}
             </div>
+
+            {nextPageToken && (
+              <div className="load-more" onClick={loadMoreResults}>
+                Load more
+              </div>
+            )}
           </>
         )}
       </div>
